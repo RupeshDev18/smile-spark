@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import CategorySelector from "./Components/CategorySelector/CategorySelector";
+import PickupLineDisplay from "./Components/PickupLineDisplay/PickupLineDisplay";
+// import axios from "axios";
 
 function App() {
+  const [category, setCategory] = useState("funny");
+  const [pickupLine, setPickupLine] = useState("welcome");
+
+  const fetchRandomPickupLine = async () => {
+    const result = await fetch(
+      `https://smile-spark-4d2n.onrender.com/api/pickup-line/${category}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const a = await result.json();
+    console.log(a);
+    setPickupLine(a.pickupLine);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Random Pickup Line Generator</h1>
+      <CategorySelector
+        category={category}
+        onCategoryChange={(e) => setCategory(e.target.value)}
+      />
+      <button onClick={fetchRandomPickupLine}>Get Pickup Line</button>
+      {pickupLine && <PickupLineDisplay pickupLine={pickupLine} />}
     </div>
   );
 }
