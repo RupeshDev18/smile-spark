@@ -5,7 +5,9 @@ import PickupLineDisplay from "./Components/PickupLineDisplay/PickupLineDisplay"
 
 function App() {
   const [category, setCategory] = useState("funny");
-  const [pickupLine, setPickupLine] = useState("welcome");
+  const [pickupLine, setPickupLine] = useState(
+    "Are you Siri? Because you autocomplete me."
+  );
 
   const fetchRandomPickupLine = async () => {
     const result = await fetch(
@@ -19,7 +21,6 @@ function App() {
       }
     );
     const a = await result.json();
-    console.log(a);
     setPickupLine(a.pickupLine);
   };
 
