@@ -11,7 +11,7 @@ function App() {
 
   const fetchRandomPickupLine = async () => {
     const result = await fetch(
-      `https://smile-spark-4d2n.onrender.com/api/pickup-line/${category}`,
+      `https://smile-spark.onrender.com/api/pickup-line/${category}`,
       {
         method: "GET",
         headers: {
